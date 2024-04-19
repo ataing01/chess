@@ -5,8 +5,8 @@
 #include "game.h"
 
 int main() {
-    gui chessgui;
-    //chessgui.makemove();
-
-    chessgui.drawgui();
+    game chessgame;
+    gui chessgui(chessgame);
+    //chessgui.drawgui();
+    //chessgui.getclick();
 }

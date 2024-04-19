@@ -3,27 +3,26 @@
 #include <vector>
 #include <sfml/graphics.hpp>
 #include <sfml/window.hpp>
-
-struct piece {
-	sf::Sprite sprite;
-	int rank;
-	int file;
-
-	piece(sf::Sprite s, int r, int f) {
-		sprite = s;
-		rank = r;
-		file = f;
-	}
-};
+#include "piece.h"
+#include "game.h"
+#include <windows.h>
 
 class gui
 {
 public:
-	gui();
-	void drawgui();
-	void makemove();
+	gui(game gamma); //initialize v
+	sf::Vector2i getclick(); //get mouse pos after a click
+	void snap(int); //snap piece to square
+	void drawpgui(int, int); //draw promotion gui at mouse pos
+	void refresh(); //clear and draw the gui again
+	void drawgui(); //create and maintain gui
 private:
-	std::vector<piece*> v;
+	game g;
+	int selectindex = -1;
 	sf::RenderWindow window;
+	sf::Texture boardt, wk, wq, wb, wn, wr, wp, bk, bq, bb, bn, br, bp, pguit;
+	sf::Sprite board, pguis;
+	std::vector<sf::Sprite> sv;
+	std::vector<sf::Sprite> pguiv;
 };
 
