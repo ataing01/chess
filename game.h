@@ -24,6 +24,8 @@ public:
 private:
 	//this gameboard is the ONLY THING that starts indices at 0,0
 	//everything else that tracks the board is 1,1 to 8,8
+	//this is definitely a bad thing but i'm in too deep now
+	//there's probably a code writing script that could fix this?
 	//also i forgot that 2d arrays go [y][x] oopsies
 	int gameboard[8][8] = {
 		{-5,-3,-4,-9,-2,-4,-3,-5},

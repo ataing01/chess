@@ -1,9 +1,6 @@
 #include "game.h"
 #include "gui.h"
 
-//TO DO
-//pawn promotion
-
 game::game() {
     //initializing piece(x, y, type)
     //white rook 1
@@ -1199,7 +1196,6 @@ bool game::makemove(int i, int x, int y) {
         printboard();
 
         //if king is still in check, rollback move
-        //this might cause problems with the enpassant flag in a situation where an enpassant gets rolled back
         if (whiteturn && check(v[4].getx(), v[4].gety())) {
             updateboard(i, oldx, oldy);
             if (c) {
@@ -1208,7 +1204,7 @@ bool game::makemove(int i, int x, int y) {
             }
             return false;
         }
-        if (!whiteturn && check(v[20].getx(), v[20].gety())) {
+        else if (!whiteturn && check(v[20].getx(), v[20].gety())) {
             updateboard(i, oldx, oldy);
             if (c) {
                 v[victim].revive();

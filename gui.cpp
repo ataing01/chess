@@ -353,7 +353,6 @@ void gui::drawgui() {
             }
 
             //on click, move piece to cursor if one is selected or set piece as selected if none are
-            
             static bool clicking;
             static int selectindex = -1;
             if (event.type == sf::Event::MouseButtonPressed) {
@@ -361,8 +360,10 @@ void gui::drawgui() {
                 sf::Vector2i mousepos = sf::Mouse::getPosition(window);
                 sf::Vector2f pos(mousepos.x, mousepos.y);
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && clicking == false) {
+                    //if no piece is selected
                     if (selectindex == -1) {
                         if (g.ispromoting() == -1) {
+                            //set clicked piece as selected if not promoting
                             for (int i = 0; i < sv.size(); i++) {
                                 if (g.getv()[i].isalive() && sv[i].getGlobalBounds().contains(pos)) {
                                     selectindex = i;
@@ -372,7 +373,7 @@ void gui::drawgui() {
                             }
                         }
                         else {
-                            //get clicks on pgui
+                            //get clicks on promotion gui if promoting
                             for (int i = 0; i < pguiv.size(); i++) {
                                 if (pguiv[i].getGlobalBounds().contains(pos)) {
                                     selectindex = i;
@@ -381,7 +382,9 @@ void gui::drawgui() {
                             }
                         }
                     }
+                    //if piece is already selected, make move with the piece
                     else {
+                        //normal
                         if (g.ispromoting() == -1) {
                             std::cout << "selected piece id " << selectindex << std::endl;
                             bool gameover = g.makemove(selectindex, ceil(pos.x / 96), ceil(pos.y / 96));
@@ -389,6 +392,8 @@ void gui::drawgui() {
                                 return;
                             }
                         }
+                        //promotion
+                        //update piece id and sprite texture
                         else {
                             if (selectindex == 0) {
                                 g.getv()[g.ispromoting()].promote(9);
@@ -433,7 +438,8 @@ void gui::drawgui() {
             if (event.type == sf::Event::MouseButtonReleased) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     clicking = false;
-                    //this is such a horrendously shitty way to do it
+                    //load pgui upon mouse release if promoting
+                    //this is such a horrendous way to do it but it works
                     if (g.ispromoting()) {
                         sf::Vector2i mousepos = sf::Mouse::getPosition(window);
                         sf::Vector2f pos(mousepos.x, mousepos.y);
